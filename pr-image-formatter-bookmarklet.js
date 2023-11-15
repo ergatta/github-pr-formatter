@@ -1,0 +1,1 @@
+javascript:(function(){var bodyInput=document.querySelector("#pull_request_body");function formatImages(){let body=bodyInput.value;body=body.replace(/!\[(.*?)\]\((.*?)\)/g,'<img src="$2" alt="$1" width="33%">');bodyInput.value=body;}formatImages();})();
