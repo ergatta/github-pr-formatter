@@ -40,11 +40,11 @@ function extractTicketAndFormatTitle(title) {
 // Format the title and body
 function formatTitleAndBody() {
     let formattedBody = '';
-    let formattedTitle = extractTicketAndFormatTitle(titleInput.value);
+    const { formattedTitle, ticketPrefix, ticketNumber } = extractTicketAndFormatTitle(titleInput.value);
     titleInput.value = formattedTitle;
 
     // Build the Jira URL
-    if (formattedTitle.ticketPrefix || formattedTitle.ticketNumber) {
+    if (ticketPrefix && ticketNumber) {
         const jiraUrl = `https://ergatta.atlassian.net/browse/${ticketPrefix}-${ticketNumber}`;
 
         // Prepend the header markdown string and append the Jira URL to the existing body value
