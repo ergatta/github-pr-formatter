@@ -6,9 +6,11 @@ function isNumeric(str) {
     return /^\d+$/.test(str);
 }
 
-// Extract the ticket prefix and number from the title and return formatted title, ticketPrefix, and ticketNumber
+
+
 // Extract the ticket prefix and number from the title and return formatted title string.
-// It can handle the following formats:
+// If a PR has only 1 commit it GitHub uses the commit title as the PR title and the commit body as the PR body. This doesn't cover this case yet.
+// The following formats are supported:
 // - team-name/PREFIX-1234-branch-name-here
 // - my-name/branch-name-here
 function extractTicketAndFormatTitle(title) {
