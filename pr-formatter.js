@@ -6,8 +6,6 @@ function isNumeric(str) {
     return /^\d+$/.test(str);
 }
 
-
-
 // Extract the ticket prefix and number from the title and return formatted title string.
 // If a PR has only 1 commit it GitHub uses the commit title as the PR title and the commit body as the PR body. This doesn't cover this case yet.
 // If a PR has more then 1 commit, GitHub uses the branch name as the PR title and leaves the PR body blank.
@@ -36,20 +34,25 @@ function extractTicketAndFormatTitle(title) {
         ? `[Commit Prefix] ${ticketPrefix}-${ticketNumber}: ${description}`
         : `[Commit Prefix] ${description}`;
 
-    return formattedTitle;
+    return { formattedTitle, ticketPrefix, ticketNumber };
 }
 
 // Format the title and body
 function formatTitleAndBody() {
-    // Call extractTicketAndFormatTitle and get ticketPrefix and ticketNumber
-    const { formattedTitle, ticketPrefix, ticketNumber } = extractTicketAndFormatTitle(titleInput.value);
+    let formattedBody = '';
+    let formattedTitle = extractTicketAndFormatTitle(titleInput.value);
+    titleInput.value = formattedTitle;
 
     // Build the Jira URL
-    const jiraUrl = `https://ergatta.atlassian.net/browse/${ticketPrefix}-${ticketNumber}`;
+    if (formattedTitle.ticketPrefix || formattedTitle.ticketNumber) {
+        const jiraUrl = `https://ergatta.atlassian.net/browse/${ticketPrefix}-${ticketNumber}`;
 
-    // Prepend the header markdown string and append the Jira URL to the existing body value
-    const formattedBody = `Jira: ${jiraUrl}\n\n# Description\n\n${bodyInput.value}`;
-
+        // Prepend the header markdown string and append the Jira URL to the existing body value
+        formattedBody = `Jira: ${jiraUrl}\n\n# Description\n\n${bodyInput.value}`;
+    } else {
+        formattedBody = `# Description\n\n${bodyInput.value}`;
+    }
+   
     // Set the value of the body input field
     bodyInput.value = formattedBody;
 }
