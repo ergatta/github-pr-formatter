@@ -10,29 +10,32 @@ function isNumeric(str) {
 
 // Extract the ticket prefix and number from the title and return formatted title string.
 // If a PR has only 1 commit it GitHub uses the commit title as the PR title and the commit body as the PR body. This doesn't cover this case yet.
-// The following formats are supported:
+// If a PR has more then 1 commit, GitHub uses the branch name as the PR title and leaves the PR body blank.
+// - GitHub takes the following branch name: `chris/XX-1234-branch-name-here` and makes the title 'Chris/xx 1234 branch name here'
+// The following branch naming formats are supported:
 // - team-name/PREFIX-1234-branch-name-here
 // - my-name/branch-name-here
 function extractTicketAndFormatTitle(title) {
     let secondPart = title.split('/')[1];
-    let ticketParts = secondPart.slice(0, 2);
+    let ticketParts = secondPart.split(' ').slice(0, 2);
     let ticketPrefix = '';
     let ticketNumber = '';
+    let description = '';
 
     if (isNumeric(ticketParts[1])) {
-        console.log('is numeric');
         ticketPrefix = ticketParts[0].toUpperCase();
         ticketNumber = ticketParts[1];
+        description = secondPart.split(' ').slice(2).join(' ');
+    } else {
+        description = secondPart;
     }
 
-    let description = secondPart.split(' ').slice(2).join(' ');
     description = description.replace(/\b\w/g, l => l.toUpperCase()); // Capitalize each word
 
     const formattedTitle = ticketPrefix && ticketNumber
         ? `[Commit Prefix] ${ticketPrefix}-${ticketNumber}: ${description}`
         : `[Commit Prefix] ${description}`;
 
-    // Return formattedTitle, ticketPrefix and ticketNumber for use in formatBody
     return formattedTitle;
 }
 
