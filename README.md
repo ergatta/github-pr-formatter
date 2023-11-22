@@ -17,7 +17,7 @@ Now, whenever you click this bookmark, it will execute the bookmarklet's JavaScr
 
 ## Bookmarklets in This Repository
 
-- `pr-formatter-bookmarklet`: This bookmarklet formats the title and body of the pull request to a specific format. To use it, navigate to the pull request page and click the bookmarklet.
-- `pr-image-formatter-bookmarklet`: This bookmarklet formats images in a pull request to a specific size. To use it, navigate to the pull request page and click the bookmarklet.
+- `pr-formatter-bookmarklet`: This bookmarklet formats the title and body of the pull request to a specific format. To use it, navigate to the "Open a pull request" page and click the bookmarklet.
+- `pr-image-formatter-bookmarklet`: This bookmarklet formats images in a pull request to a specific size. To use it, navigate to the"Open a pull request" page and click the bookmarklet.
 
 Please refer to the individual bookmarklet files for more detailed information and usage instructions.
