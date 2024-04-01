@@ -38,7 +38,7 @@ function extractTicketAndFormatTitle(title) {
         ticketNumber = ticketParts[1];
         description = branchParts.slice(2).join(' ');
     } else {
-        description = branchNameNoFleet;
+        description = branchNameNoFleet.replaceAll("-", " ");
     }
 
     description = description.replace(/\b\w/g, l => l.toUpperCase()); // Capitalize each word
